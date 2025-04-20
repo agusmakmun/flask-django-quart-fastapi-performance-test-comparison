@@ -12,7 +12,7 @@
 
 
 echo 'GET http://127.0.0.1:8000/api/dummy' | \
-    vegeta attack -rate=1000/s -duration 10m | vegeta encode | \
+    vegeta attack -rate=5000/s -duration 10m | vegeta encode | \
     jaggr @count=rps \
           hist\[100,200,300,400,500\]:code \
           p25,p50,p95:latency \
