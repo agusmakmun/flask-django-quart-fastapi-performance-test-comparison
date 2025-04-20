@@ -167,10 +167,13 @@ brew install rs/tap/jplot
 Our performance testing revealed significant differences between the three frameworks:
 
 ### Flask Performance
-- **Deadlock at 400/s**: The Flask application experienced a deadlock when tested at just 400 requests per second using `gunicorn_config_deadlock.py` meanwhile when using `gunicorn_config.py` it's able to cover 1k rps but unstable _(more than that having a deadlock again)_.
-- **Synchronous Bottleneck**: The synchronous nature of Flask created a bottleneck that prevented it from handling higher loads
-- **Worker Limitations**: Even with ASGI middleware, the fixed worker count (4) was insufficient for concurrent processing
-- **Resource Exhaustion**: The application exhausted system resources (CPU, memory) at relatively low request rates
+- **Configuration Comparison**: 
+  - With `gunicorn_config_deadlock.py`: The Flask application experienced a deadlock at just 400 requests per second
+  - With `gunicorn_config.py`: The application can handle up to 1k rps but becomes unstable at higher loads
+- **Improved Configuration**: The updated `gunicorn_config.py` with dynamic worker count (`cpu_count * 2 + 1`), worker connections (1000), and max requests settings provides better stability
+- **Synchronous Bottleneck**: Despite configuration improvements, Flask's synchronous nature still creates bottlenecks compared to async frameworks
+- **Worker Management**: Dynamic worker count based on CPU cores helps better utilize system resources, but the synchronous processing model limits overall throughput
+- **ASGI Integration**: Using Uvicorn workers with ASGI middleware allows Flask to benefit from some async capabilities while maintaining its familiar API
 
 ### Quart and FastAPI Performance
 - **Stable at 9k/s**: Both Quart and FastAPI maintained stable performance at 9000 requests per second
