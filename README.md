@@ -49,12 +49,14 @@ This repository contains a performance comparison between a traditional Flask ap
 │   ├── requirements.txt
 │   └── README.md
 │
-├── test-performance.sh  # Performance testing script
-├── .gitignore           # Git ignore file
-└── .img/                # Performance comparison images
-    ├── flask.png        # Flask performance results
-    ├── quart.png        # Quart performance results
-    └── fast-api.png     # FastAPI performance results
+├── test-performance.sh        # Performance testing script
+├── .gitignore                 # Git ignore file
+└── .img/                      # Performance comparison images
+    ├── flask.png              # Flask performance results
+    ├── flask-deadlock.png     # Flask deadlock results
+    ├── flask-deadlock-1k.png  # Flask deadlock at 1k RPS
+    ├── quart.png              # Quart performance results
+    └── fast-api.png           # FastAPI performance results
 ```
 
 ## Overview
