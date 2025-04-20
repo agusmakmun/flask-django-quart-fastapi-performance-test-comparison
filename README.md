@@ -167,7 +167,7 @@ brew install rs/tap/jplot
 Our performance testing revealed significant differences between the three frameworks:
 
 ### Flask Performance
-- **Deadlock at 400/s**: The Flask application experienced a deadlock when tested at just 400 requests per second
+- **Deadlock at 400/s**: The Flask application experienced a deadlock when tested at just 400 requests per second using `gunicorn_config_deadlock.py` meanwhile when using `gunicorn_config.py` it's able to cover 1k rps but unstable _(more than that having a deadlock again)_.
 - **Synchronous Bottleneck**: The synchronous nature of Flask created a bottleneck that prevented it from handling higher loads
 - **Worker Limitations**: Even with ASGI middleware, the fixed worker count (4) was insufficient for concurrent processing
 - **Resource Exhaustion**: The application exhausted system resources (CPU, memory) at relatively low request rates
