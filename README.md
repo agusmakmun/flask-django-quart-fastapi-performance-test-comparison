@@ -33,18 +33,38 @@ Both implementations use:
 - Similar API endpoints for fair comparison
 - Performance testing tools (Vegeta) for benchmarking
 
+## Implementation Details
+
+### Flask Implementation (Before)
+- Uses Flask 3.0.2 with ASGI middleware (asgiref.wsgi.WsgiToAsgi)
+- Synchronous request handling
+- Fixed worker count (4 workers)
+- Test rate: 400 requests per second
+
+### Quart Implementation (After)
+- Uses Quart 0.19.4 (async-first Flask alternative)
+- Native async request handling with `async def` endpoints
+- Dynamic worker count based on CPU cores: `cpu_count * 2 + 1`
+- Advanced Gunicorn configuration with:
+  - Worker connections: 1000
+  - Max requests: 1000
+  - Max requests jitter: 50
+- Test rate: 5000 requests per second (12.5x higher than Flask)
+
 ## Key Differences
 
 ### Before (Flask)
 - Traditional synchronous Flask application
 - Uses ASGI middleware for Uvicorn compatibility
 - Standard Flask routing and request handling
+- Limited concurrency due to synchronous nature
 
 ### After (Quart)
 - Native async framework
 - Built-in ASGI support
 - Async-first approach to request handling
 - Better suited for high-concurrency scenarios
+- More optimized Gunicorn configuration
 
 ## Getting Started
 
@@ -57,7 +77,7 @@ Both implementations use:
 ## Performance Testing
 
 Both implementations include a `test-performance.sh` script that:
-- Sends 1000 requests per second for 10 minutes
+- Sends requests at different rates (400/s for Flask, 5000/s for Quart)
 - Measures response times and throughput
 - Provides real-time metrics visualization
 
@@ -110,4 +130,5 @@ brew install rs/tap/jplot
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [Quart Documentation](https://quart.palletsprojects.com/)
 - [Gunicorn Documentation](https://docs.gunicorn.org/)
-- [Uvicorn Documentation](https://www.uvicorn.org/) 
+- [Uvicorn Documentation](https://www.uvicorn.org/)
+- [Vegeta Documentation](https://github.com/tsenart/vegeta) 
