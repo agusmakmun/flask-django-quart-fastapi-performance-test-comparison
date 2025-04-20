@@ -44,12 +44,12 @@ There are several ways to run the application locally with Gunicorn:
 
 2. Using Gunicorn with configuration file (recommended):
    ```bash
-   gunicorn --bind 127.0.0.1:8000 -c gunicorn_config.py
+   gunicorn -c gunicorn_config.py
    ```
 
 3. For development with hot reload:
    ```bash
-   gunicorn --bind 127.0.0.1:8000 -c gunicorn_config.py --reload
+   gunicorn -c gunicorn_config.py --reload
    ```
 
 The application will be available at `http://127.0.0.1:8000`
