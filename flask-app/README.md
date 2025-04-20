@@ -80,6 +80,36 @@ Expected response:
 }
 ```
 
+## Performance Testing
+
+For performance testing, use the shared script in the root directory:
+
+1. Make sure the application is running with Gunicorn:
+   ```bash
+   gunicorn -c gunicorn_config.py
+   ```
+
+2. Navigate to the root directory and make the performance testing script executable:
+   ```bash
+   cd ..
+   chmod +x test-performance.sh
+   ```
+
+3. Run the performance test:
+   ```bash
+   ./test-performance.sh
+   ```
+
+The test will:
+- Send requests at configurable rates (default: 9000/s)
+- Display real-time metrics including:
+  - Requests per second
+  - Response status codes
+  - Latency percentiles (p25, p50, p95)
+  - Bytes in/out
+
+You can modify the rate in the script by changing the `-rate=9000/s` parameter.
+
 ## Development Tips
 
 - Use the `--reload` flag during development to automatically reload the server when code changes

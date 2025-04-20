@@ -10,9 +10,11 @@
 # chmod +x test-performance.sh
 # ./test-performance.sh
 
+# Run the test
+# Change the "-rate=9000/s" to the desired rate
 
 echo 'GET http://127.0.0.1:8000/api/dummy' | \
-    vegeta attack -rate=5000/s -duration 10m | vegeta encode | \
+    vegeta attack -rate=9000/s -duration 10m | vegeta encode | \
     jaggr @count=rps \
           hist\[100,200,300,400,500\]:code \
           p25,p50,p95:latency \

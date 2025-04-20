@@ -1,6 +1,13 @@
-# Quart Application with Gunicorn and Uvicorn
+# FastAPI Application with Gunicorn and Uvicorn
 
-This is a simple Quart application that demonstrates the use of Gunicorn with Uvicorn workers. Quart is an async-first framework that is API-compatible with Flask but built on ASGI.
+This is a FastAPI application that demonstrates high-performance API development with modern Python frameworks.
+
+## Features
+
+- Async API endpoint at `/api/dummy`
+- Uses Gunicorn with Uvicorn workers for optimal performance
+- Native ASGI support through FastAPI
+- Includes performance testing setup with Vegeta
 
 ## Prerequisites
 
@@ -19,21 +26,13 @@ brew install rs/tap/jaggr
 brew install rs/tap/jplot
 ```
 
-## Features
-
-- Async API endpoint at `/api/dummy`
-- Uses Gunicorn with Uvicorn workers for high performance
-- Native ASGI support through Quart
-- Includes performance testing setup with Vegeta
-
 ## Project Structure
 
 ```
 .
-├── app.py              # Main application file
+├── app.py              # Main FastAPI application file
 ├── gunicorn_config.py  # Gunicorn server configuration
 ├── requirements.txt    # Python dependencies
-├── test-performance.sh # Performance testing script
 └── README.md           # This file
 ```
 
@@ -59,11 +58,11 @@ brew install rs/tap/jplot
 ## Running the Application
 
 ### Development Mode
-Run with Quart's built-in development server:
+Run with Uvicorn directly:
 ```bash
-python app.py
+uvicorn app:app --reload
 ```
-Access at: http://127.0.0.1:5000
+Access at: http://127.0.0.1:8000
 
 ### Production Mode
 Run with Gunicorn (recommended for production):
@@ -99,13 +98,16 @@ Example response:
 
 ## Performance Testing
 
+For performance testing, use the shared script in the root directory:
+
 1. Make sure the application is running with Gunicorn:
    ```bash
    gunicorn -c gunicorn_config.py
    ```
 
-2. Make the performance testing script executable:
+2. Navigate to the root directory and make the performance testing script executable:
    ```bash
+   cd ..
    chmod +x test-performance.sh
    ```
 
@@ -115,12 +117,14 @@ Example response:
    ```
 
 The test will:
-- Send 1000 requests per second for 10 minutes
+- Send requests at configurable rates (default: 9000/s)
 - Display real-time metrics including:
   - Requests per second
   - Response status codes
   - Latency percentiles (p25, p50, p95)
   - Bytes in/out
+
+You can modify the rate in the script by changing the `-rate=9000/s` parameter.
 
 ## Configuration
 
