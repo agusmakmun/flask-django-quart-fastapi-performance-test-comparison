@@ -7,31 +7,31 @@ This repository contains a performance comparison between a traditional Flask ap
 ```
 .
 ├── flask-app/        # Traditional Flask implementation
-│   ├── app.py       # Flask application
+│   ├── app.py        # Flask application
 │   ├── gunicorn_config.py
 │   ├── requirements.txt
 │   ├── __init__.py
 │   └── README.md
 │
 ├── quart-app/        # Async Quart implementation
-│   ├── app.py       # Quart application
+│   ├── app.py        # Quart application
 │   ├── gunicorn_config.py
 │   ├── requirements.txt
 │   ├── __init__.py
 │   └── README.md
 │
 ├── fastapi-app/      # FastAPI implementation
-│   ├── app.py       # FastAPI application
+│   ├── app.py        # FastAPI application
 │   ├── gunicorn_config.py
 │   ├── requirements.txt
 │   └── README.md
 │
 ├── test-performance.sh  # Performance testing script
-├── .gitignore          # Git ignore file
-└── .img/               # Performance comparison images
-    ├── flask.png       # Flask performance results
-    ├── quart.png       # Quart performance results
-    └── fast-api.png    # FastAPI performance results
+├── .gitignore           # Git ignore file
+└── .img/                # Performance comparison images
+    ├── flask.png        # Flask performance results
+    ├── quart.png        # Quart performance results
+    └── fast-api.png     # FastAPI performance results
 ```
 
 ## Overview
@@ -160,6 +160,30 @@ brew update && brew install vegeta
 brew install rs/tap/jaggr
 brew install rs/tap/jplot
 ```
+
+## Performance Test Conclusions
+
+Our performance testing revealed significant differences between the three frameworks:
+
+### Flask Performance
+- **Deadlock at 400/s**: The Flask application experienced a deadlock when tested at just 400 requests per second
+- **Synchronous Bottleneck**: The synchronous nature of Flask created a bottleneck that prevented it from handling higher loads
+- **Worker Limitations**: Even with ASGI middleware, the fixed worker count (4) was insufficient for concurrent processing
+- **Resource Exhaustion**: The application exhausted system resources (CPU, memory) at relatively low request rates
+
+### Quart and FastAPI Performance
+- **Stable at 9k/s**: Both Quart and FastAPI maintained stable performance at 9000 requests per second
+- **Async Advantage**: The async-first design of both frameworks allowed efficient handling of concurrent requests
+- **Resource Efficiency**: Even under high load, both frameworks maintained reasonable resource usage
+- **Upper Limit at 10k/s**: Both frameworks reached their performance ceiling at approximately 10,000 requests per second, with increased error rates and latency
+
+### Key Findings
+1. **Framework Architecture Matters**: The fundamental architecture of a framework (sync vs. async) has a dramatic impact on performance under load
+2. **Async is Essential for High Concurrency**: For applications that need to handle thousands of concurrent requests, async frameworks are essential
+3. **Modern Frameworks Outperform**: Both Quart and FastAPI significantly outperformed Flask, demonstrating the benefits of modern, async-first design
+4. **Performance Ceilings Exist**: Even the best frameworks have performance limits, which should be considered when designing high-load systems
+
+These results demonstrate why modern async frameworks like Quart and FastAPI are preferred for high-performance API development, especially when dealing with high concurrency scenarios.
 
 ## See Also
 
