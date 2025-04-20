@@ -9,6 +9,7 @@ This repository contains a performance comparison between a traditional Flask ap
 ├── flask-app/        # Traditional Flask implementation
 │   ├── app.py        # Flask application
 │   ├── gunicorn_config.py
+│   ├── gunicorn_config_deadlock.py  # for deadlock case
 │   ├── requirements.txt
 │   ├── __init__.py
 │   └── README.md
