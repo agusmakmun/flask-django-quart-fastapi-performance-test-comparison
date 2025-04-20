@@ -2,6 +2,28 @@
 
 This repository contains a performance comparison between a traditional Flask application, an async Quart application, and a FastAPI application, all using Gunicorn with Uvicorn workers.
 
+## Table of Contents
+- [Project Structure](#project-structure)
+- [Overview](#overview)
+- [Implementation Details](#implementation-details)
+  - [Flask Implementation](#flask-implementation-flask-app)
+  - [Quart Implementation](#quart-implementation-quart-app)
+  - [FastAPI Implementation](#fastapi-implementation-fastapi-app)
+- [Key Differences](#key-differences)
+  - [Flask](#flask-flask-app)
+  - [Quart](#quart-quart-app)
+  - [FastAPI](#fastapi-fastapi-app)
+- [Getting Started](#getting-started)
+- [Performance Testing](#performance-testing)
+- [Performance Results](#performance-results)
+- [Requirements](#requirements)
+- [Installation of Testing Tools](#installation-of-testing-tools)
+- [Performance Test Conclusions](#performance-test-conclusions)
+  - [Flask Performance](#flask-performance)
+  - [Quart and FastAPI Performance](#quart-and-fastapi-performance)
+  - [Key Findings](#key-findings)
+- [See Also](#see-also)
+
 ## Project Structure
 
 ```
