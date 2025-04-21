@@ -118,7 +118,7 @@ All implementations use:
 - Test rate: 9000 requests per second (22.5x higher than Flask)
 
 ### Django Implementation (django-app)
-- Uses Django 5.0.2 with ASGI middleware (asgiref.wsgi.WsgiToAsgi)
+- Uses Django 5.0.2 with native ASGI support
 - Synchronous request handling
 - Dynamic worker count based on CPU cores: `cpu_count * 2 + 1`
 - Advanced Gunicorn configuration with:
