@@ -9,10 +9,12 @@ This repository contains a performance comparison between a traditional Flask ap
   - [Flask Implementation](#flask-implementation-flask-app)
   - [Quart Implementation](#quart-implementation-quart-app)
   - [FastAPI Implementation](#fastapi-implementation-fastapi-app)
+  - [Django Implementation](#django-implementation-django-app)
 - [Key Differences](#key-differences)
   - [Flask](#flask-flask-app)
   - [Quart](#quart-quart-app)
   - [FastAPI](#fastapi-fastapi-app)
+  - [Django](#django-django-app)
 - [Getting Started](#getting-started)
 - [Performance Testing](#performance-testing)
 - [Performance Results](#performance-results)
@@ -20,6 +22,7 @@ This repository contains a performance comparison between a traditional Flask ap
 - [Installation of Testing Tools](#installation-of-testing-tools)
 - [Performance Test Conclusions](#performance-test-conclusions)
   - [Flask Performance](#flask-performance)
+  - [Django Performance](#django-performance)
   - [Quart and FastAPI Performance](#quart-and-fastapi-performance)
   - [Key Findings](#key-findings)
 - [See Also](#see-also)
@@ -49,6 +52,18 @@ This repository contains a performance comparison between a traditional Flask ap
 │   ├── requirements.txt
 │   └── README.md
 │
+├── django-app/       # Django implementation
+│   ├── app.py        # Django application
+│   ├── gunicorn_config.py
+│   ├── requirements.txt
+│   ├── __init__.py
+│   ├── app/          # Django app package
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   └── README.md
+│
 ├── test-performance.sh        # Performance testing script
 ├── .gitignore                 # Git ignore file
 └── .img/                      # Performance comparison images
@@ -65,6 +80,7 @@ This project demonstrates the performance differences between:
 1. A traditional Flask application with ASGI middleware
 2. A native async Quart application
 3. A modern FastAPI application
+4. A Django application with ASGI middleware
 
 All implementations use:
 - Gunicorn as the WSGI/ASGI server
@@ -88,7 +104,7 @@ All implementations use:
   - Worker connections: 1000
   - Max requests: 1000
   - Max requests jitter: 50
-- Test rate: 5000 requests per second (12.5x higher than Flask)
+- Test rate: 9000 requests per second (22.5x higher than Flask)
 
 ### FastAPI Implementation (fastapi-app)
 - Uses FastAPI 0.110.0 (modern, fast web framework)
@@ -99,7 +115,17 @@ All implementations use:
   - Worker connections: 1000
   - Max requests: 1000
   - Max requests jitter: 50
-- Test rate: 5000 requests per second
+- Test rate: 9000 requests per second (22.5x higher than Flask)
+
+### Django Implementation (django-app)
+- Uses Django 5.0.2 with ASGI middleware (asgiref.wsgi.WsgiToAsgi)
+- Synchronous request handling
+- Dynamic worker count based on CPU cores: `cpu_count * 2 + 1`
+- Advanced Gunicorn configuration with:
+  - Worker connections: 1000
+  - Max requests: 1000
+  - Max requests jitter: 50
+- Test rate: 3000 requests per second (7.5x higher than Flask)
 
 ## Key Differences
 
@@ -124,12 +150,20 @@ All implementations use:
 - Native async support
 - Designed for high performance from the ground up
 
+### Django (django-app)
+- Full-featured web framework
+- Uses ASGI middleware for Uvicorn compatibility
+- Synchronous request handling with ORM capabilities
+- More complex architecture compared to Flask
+- Limited concurrency due to synchronous nature
+
 ## Getting Started
 
 1. Choose which implementation to test:
    - For Flask: `cd flask-app`
    - For Quart: `cd quart-app`
    - For FastAPI: `cd fastapi-app`
+   - For Django: `cd django-app`
 
 2. Follow the installation and running instructions in the respective README.md files.
 
@@ -155,9 +189,12 @@ You can modify the rate in the script by changing the `-rate=9000/s` parameter.
 
 The `.img` directory contains visualizations of the performance test results. Below is a side-by-side comparison:
 
-| Flask Performance | Quart Performance | FastAPI Performance |
-|------------------|-------------------|---------------------|
-| ![Flask Performance Results](.img/flask.png) | ![Quart Performance Results](.img/quart.png) | ![FastAPI Performance Results](.img/fast-api.png) |
+| Framework | Performance Test                                  |
+|-----------|---------------------------------------------------|
+| Flask     | ![Flask Performance Results](.img/flask.png)      |
+| Quart     | ![Quart Performance Results](.img/quart.png)      |
+| FastAPI   | ![FastAPI Performance Results](.img/fast-api.png) |
+| Django    | ![Django Performance Results](.img/django.png)    |
 
 These visualizations show:
 - Requests per second (RPS)
@@ -198,6 +235,14 @@ Our performance testing revealed significant differences between the three frame
 - **Synchronous Bottleneck**: Despite configuration improvements, Flask's synchronous nature still creates bottlenecks compared to async frameworks
 - **Worker Management**: Dynamic worker count based on CPU cores helps better utilize system resources, but the synchronous processing model limits overall throughput
 - **ASGI Integration**: Using Uvicorn workers with ASGI middleware allows Flask to benefit from some async capabilities while maintaining its familiar API
+
+### Django Performance
+- **Higher Throughput**: Django can handle up to 3,000 requests per second, significantly higher than initially expected
+- **Framework Overhead**: Despite its full-featured nature, Django's performance is better than Flask for similar workloads
+- **ASGI Support**: Django's native ASGI support (introduced in Django 3.1) provides excellent performance with Uvicorn workers
+- **Worker Configuration**: Dynamic worker count and optimized Gunicorn settings allow Django to efficiently utilize system resources
+- **ORM Impact**: For database-heavy applications, Django's ORM can become a bottleneck under high load, but for simple API endpoints, performance is excellent
+- **Stability**: Django maintains stable performance even under higher loads compared to Flask, with fewer deadlock issues
 
 ### Quart and FastAPI Performance
 - **Stable at 9k/s**: Both Quart and FastAPI maintained stable performance at 9000 requests per second
