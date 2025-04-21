@@ -189,12 +189,12 @@ You can modify the rate in the script by changing the `-rate=9000/s` parameter.
 
 The `.img` directory contains visualizations of the performance test results. Below is a side-by-side comparison:
 
-| Framework | Performance Test                                  |
-|-----------|---------------------------------------------------|
-| Flask     | ![Flask Performance Results](.img/flask.png)      |
-| Quart     | ![Quart Performance Results](.img/quart.png)      |
-| FastAPI   | ![FastAPI Performance Results](.img/fast-api.png) |
-| Django    | ![Django Performance Results](.img/django.png)    |
+| Framework         | Performance Test                                  |
+|-------------------|---------------------------------------------------|
+| Flask (400 rps)   | ![Flask Performance Results](.img/flask.png)      |
+| Quart (9k rps)    | ![Quart Performance Results](.img/quart.png)      |
+| FastAPI (9k rps)  | ![FastAPI Performance Results](.img/fast-api.png) |
+| Django (3k rps)   | ![Django Performance Results](.img/django.png)    |
 
 These visualizations show:
 - Requests per second (RPS)
