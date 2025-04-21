@@ -1,6 +1,6 @@
 # Flask Performance Test Comparison
 
-This repository contains a performance comparison between a traditional Flask application, an async Quart application, and a FastAPI application, all using Gunicorn with Uvicorn workers.
+This repository contains a performance comparison between a traditional Flask application, an async Quart application, a FastAPI application, and a Django application, all using Gunicorn with Uvicorn workers.
 
 ## Table of Contents
 - [Project Structure](#project-structure)
@@ -225,7 +225,7 @@ brew install rs/tap/jplot
 
 ## Performance Test Conclusions
 
-Our performance testing revealed significant differences between the three frameworks:
+Our performance testing revealed significant differences between the four frameworks:
 
 ### Flask Performance
 - **Configuration Comparison**: 
