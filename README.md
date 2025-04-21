@@ -2,6 +2,11 @@
 
 This repository contains a performance comparison between a traditional Flask application, an async Quart application, a FastAPI application, and a Django application, all using Gunicorn with Uvicorn workers.
 
+**Machine Specs:**
+
+![Machine Spec](.img/machine-spec.png)
+
+
 ## Table of Contents
 - [Project Structure](#project-structure)
 - [Overview](#overview)
