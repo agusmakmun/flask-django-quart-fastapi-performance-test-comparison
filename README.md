@@ -263,6 +263,7 @@ These results demonstrate why modern async frameworks like Quart and FastAPI are
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [Quart Documentation](https://quart.palletsprojects.com/)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [Django Documentation](https://docs.djangoproject.com/)
 - [Gunicorn Documentation](https://docs.gunicorn.org/)
 - [Uvicorn Documentation](https://www.uvicorn.org/)
 - [Vegeta Documentation](https://github.com/tsenart/vegeta) 
