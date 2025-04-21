@@ -4,7 +4,7 @@ This repository contains a performance comparison between a traditional Flask ap
 
 **Machine Specs:**
 
-![Machine Spec](.img/machine-spec.png)
+![Machine Spec](.img/machine-specs.png)
 
 
 ## Table of Contents
